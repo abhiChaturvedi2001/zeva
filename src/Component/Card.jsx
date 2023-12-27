@@ -24,7 +24,7 @@ const Card = () => {
     <h1>loading......</h1>
   ) : (
     <>
-      <div className="right w-[60rem] grid grid-cols-3 gap-x-3 gap-y-5">
+      <div className="right w-[60rem] grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-x-3 gap-y-5">
         {FilterData.map((items) => {
           const { image, title, id, price } = items;
           const { rate, count } = items?.rating;

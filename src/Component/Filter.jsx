@@ -30,7 +30,7 @@ const Filter = () => {
 
   return (
     <>
-      <div className="left px-10 py-5 w-[30%]">
+      <div className="left px-10 py-5 w-[30%] max-md:w-[40%] max-md:px-1">
         <h4 className="font-bold">Category</h4>
         <ul className="mt-4">
           {getCategory.map((items) => {
