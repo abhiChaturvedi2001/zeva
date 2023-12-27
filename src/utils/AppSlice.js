@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const AppSlice = createSlice({
     name: "AppSlice",
     initialState: {
-        productsData: [],
-        filterData: [],
+        productsData: [], // this is products array 
+        filterData: [],  // this is also products array
+        wishListData: [], // this is wishlst array
+        cartData: [], // this is card data array
     },
     reducers: {
+        // adding data into the productsData
         addData: (state, action) => {
             const data = action.payload;
             state.productsData = [...data];
@@ -39,11 +43,36 @@ const AppSlice = createSlice({
             })
         },
         wishList: (state, action) => {
-            const product = state.filterData.find((items) => items.id === action.payload);
+            const itemId = action.payload;
+            const product = state.productsData.find((prod) => prod.id === itemId);
 
+            if (product) {
+                if (!product.inWishlist) {
+                    state.wishListData.push(itemId);
+                    toast.success("Items added in the wish list", {
+                        position: "top-center",
+                        autoClose: 500,
+                    })
+                } else {
+                    const index = state.wishListData.indexOf(itemId);
+                    if (index !== -1) {
+                        state.wishListData.splice(index, 1);
+                    }
+                    toast.error("Item removed From the wishlist", {
+                        position: "top-center",
+                        autoClose: 500,
+                    })
+                }
+
+                product.inWishlist = !product.inWishlist;
+            }
+        },
+        addCartData: (state, action) => {
+            state.cartData.push(action.payload)
         }
     }
 })
 
-export const { addData, addFilterData, filterByCategory, filterByRange, addSearchBar, wishList } = AppSlice.actions;
+// exporting all the actions by using named export
+export const { addCartData, addData, addFilterData, filterByCategory, filterByRange, addSearchBar, wishList } = AppSlice.actions;
 export default AppSlice.reducer

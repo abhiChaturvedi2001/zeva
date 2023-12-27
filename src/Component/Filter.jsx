@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { filterByCategory, filterByRange } from "../utils/AppSlice";
 
 const Filter = () => {
-  const [rangeValue, setRangeValue] = useState(0);
   const dispatch = useDispatch();
+  const [rangeValue, setRangeValue] = useState(0);
   const productsData = useSelector((store) => store.app.productsData);
 
+  // this give the category which were available in our products api
   const getUnique = (data, property) => {
     let newVal = data.map((items) => {
       return items[property];
@@ -14,17 +15,18 @@ const Filter = () => {
 
     return (newVal = ["All", ...new Set(newVal)]);
   };
+  const getCategory = getUnique(productsData, "category");
 
+  // handle category according to the category we have to be filter
   const handleCategory = (id) => {
     dispatch(filterByCategory(id));
   };
 
+  // it handle according to the price range
   const handleRangeChange = (value) => {
     setRangeValue(value);
     dispatch(filterByRange(value));
   };
-
-  const getCategory = getUnique(productsData, "category");
 
   return (
     <>

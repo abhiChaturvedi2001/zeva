@@ -7,6 +7,7 @@ const SearchComp = () => {
   const handleInput = () => {
     dispatch(addSearchBar(input));
   };
+
   return (
     <>
       <div className="flex justify-center my-10">
